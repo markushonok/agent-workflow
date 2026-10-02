@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:review:parent",
+  "title": "Aggregated review result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["status", "design", "behavior"],
+  "properties": {
+    "status": {"enum": ["completed", "incomplete"]},
+    "design": {
+      "oneOf": [{"$ref": "urn:review:design"}, {"$ref": "urn:review:failure"}]
+    },
+    "behavior": {
+      "oneOf": [{"$ref": "urn:review:behavior"}, {"$ref": "urn:review:failure"}]
+    }
+  },
+  "$comment": "Validate.jq enforces completed status only with two completed children, and incomplete status only with a failed child."
+}
